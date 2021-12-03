@@ -93,7 +93,6 @@ class Create extends Component
         ];
         ResearchFile::create($file);
         session()->flash('success', 'Research proposal has been successfully created');
-        $this->emit('researchCreateModalHide');
         $this->emit('refreshResearchIndex');
     }
 }

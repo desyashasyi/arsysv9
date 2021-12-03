@@ -1,0 +1,2 @@
+﻿"Activity Id","Day","Hour","Students Sets","Subject","Teachers","Activity Tags","Room","Comments"
+"1","Monday","09:30","TE01-1","E5051-EE101-3-FISIKA DASAR I","AIP","","B1-125-PTE",""

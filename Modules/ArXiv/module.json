@@ -1,0 +1,13 @@
+{
+    "name": "ArXiv",
+    "alias": "arxiv",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ArXiv\\Providers\\ArXivServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

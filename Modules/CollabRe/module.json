@@ -1,0 +1,13 @@
+{
+    "name": "CollabRe",
+    "alias": "collabre",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\CollabRe\\Providers\\CollabReServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Timetable",
+    "alias": "timetable",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Timetable\\Providers\\TimetableServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

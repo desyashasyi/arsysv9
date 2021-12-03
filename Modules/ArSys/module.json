@@ -1,0 +1,13 @@
+{
+    "name": "ArSys",
+    "alias": "arsys",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\ArSys\\Providers\\ArSysServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,13 @@
+{
+    "ArSys": true,
+    "Module": true,
+    "Office": true,
+    "Timetable": true,
+    "ArXiv": true,
+    "Lectures": true,
+    "MobileBackend": true,
+    "CollArSys": true,
+    "CollabRe": true,
+    "Sympozia": false,
+    "Course": true
+}

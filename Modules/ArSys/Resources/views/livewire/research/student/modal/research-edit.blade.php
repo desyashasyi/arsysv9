@@ -30,12 +30,6 @@
 
                 <div class="form-group">
                     <label for="researchFile">Abstract</label>
-                    <p class="text-danger">Due to unresolved bug, hence the file uploader now is deactivated.
-                        For proposal review purposes, please upload your proposal to google drive and then attach the link to this abstract
-                        <br>
-                        <br>
-                        NOTE: Make sure that your proposal could be accessed when necessary, otherwise it would not be processed
-                    </p>
                     <br>
                     <textarea rows="3" wire:model = "researchAbstract" class="form-control"></textarea>
                     @error('researchAbstract') <span class="text-danger">{{ $message }}</span>@enderror

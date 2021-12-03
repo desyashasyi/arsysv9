@@ -128,9 +128,9 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-light-navy elevation-1',
+    'classes_sidebar' => 'sidebar-light-cyan elevation-1',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-navy navbar-light',
+    'classes_topnav' => 'navbar-cyan navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 

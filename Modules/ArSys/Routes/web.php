@@ -41,6 +41,7 @@ Route::prefix('arsys')->group(function() {
      * USER
      */
     Route::get('/user/management', 'UserController@userManagement_Admin')->name('arsys.user.management');
+    Route::get('/user/specialization/login-as', 'UserController@loginAs_specialization')->name('arsys.user.specialization.login-as');
     Route::get('/user/refresh-login', 'UserController@refreshLogin_User')->name('arsys.user.refresh-login');
     Route::get('/user/mobile-activation', 'UserController@mobileActivation_User')->name('arsys.user.mobile-activation');
 

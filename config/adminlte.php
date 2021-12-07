@@ -852,6 +852,13 @@ return [
             'roles' => 'specialization',
         ],
 
+        [
+            'text' => 'Login As',
+            'route'  => 'arsys.user.specialization.login-as',
+            'icon' => 'fas fa-fw fa-user-circle',
+            'roles' => 'specialization',
+        ],
+
         ['header' => 'Head of Specialization (Arxiv)',
         'roles' => 'specialization'
         ],

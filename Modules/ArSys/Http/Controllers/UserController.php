@@ -29,4 +29,12 @@ class UserController extends Controller
         }else
             return redirect()->route('arsys');
     }
+
+    public function loginAs_specialization(){
+        $user = Auth::user();
+        if($user != null && $user->hasRole('specialization')){
+            return view ('arsys::livewire.user.specialization.login-as-idx');
+        }else
+            return redirect()->route('arsys');
+    }
 }

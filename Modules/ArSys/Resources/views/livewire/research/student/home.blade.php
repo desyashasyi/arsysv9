@@ -247,133 +247,12 @@
                                                                         <div class="col-md-6 border-right offset-md-0">
                                                                             <div class="row">
                                                                                 <div class="col-md offset-md-0">
-                                                                                    <i class="fas fa-spinner"></i><b> Progress of Supervision</b>
-                                                                                <hr>
-                                                                                @foreach($research->supervisor as $supervisor)
-                                                                                    @if($supervisor->faculty->code != 'EXT')
-                                                                                        <div class="row">
-                                                                                            <div class="col-md offset-md-0">
-                                                                                                <i class="text-success">{{$supervisor->faculty->code}}</i>
-                                                                                                @if($research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'SE')->first()->id ||
-                                                                                                    $research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'PI')->first()->id)
-                                                                                                    @if($research->research_milestone != 0 && $research->research_milestone != 10)
-                                                                                                        <button wire:click="$emit('researchCreateSuperviseComponent', {{$supervisor->id}})" class="btn btn-sm"><i class="fas fa-plus-circle"></i> Add Meeting</button>
-                                                                                                    @endif
-                                                                                                @endif
-                                                                                                @if($research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'TA')->first()->id ||
-                                                                                                    $research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'SK')->first()->id ||
-                                                                                                    $research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'TM')->first()->id ||
-                                                                                                    $research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'DD')->first()->id)
-                                                                                                    @if($research->research_milestone != 0 && $research->research_milestone != 17)
-                                                                                                        <button wire:click="$emit('researchCreateSuperviseComponent', {{$supervisor->id}})" class="btn btn-sm"><i class="fas fa-plus-circle"></i> Add Meeting</button>
-                                                                                                    @endif
-                                                                                                @endif
-
-                                                                                                @if($supervisor->bypass === 1)
-                                                                                                    <i class="fa fa-check fa-xs" style ="color:green" aria-hidden="true"></i> bypass
-                                                                                                @else
-                                                                                                    <i class="fa fa-ban fa-xs" aria-hidden="true" style ="color:red"></i> bypass
-                                                                                                @endif
-
-                                                                                                @php($counter=0)
-                                                                                                @if($research->supervise != null)
-                                                                                                    @forelse ($research->supervise as $supervise)
-                                                                                                        @if ($supervise->supervisor_id == $supervisor->supervisor_id)
-                                                                                                            <br>
-                                                                                                            @if($supervise->status == true)
-                                                                                                                <i class="fa fa-check-circle fa-xs" style ="color:green" aria-hidden="true"></i>
-                                                                                                            @else
-                                                                                                                <i class="fa fa-check-circle fa-xs" style ="color:gray" aria-hidden="true"></i>
-                                                                                                            @endif
-                                                                                                            Meeting {{++$counter}}:
-                                                                                                            <a href="#" wire:click="$emit('superviseDiscussionComponent', {{$supervise->id}})">
-                                                                                                            <u>{{ \Carbon\Carbon::parse($supervise->created_at)->format('d-m-Y') }}</u>
-                                                                                                            </a>
-
-                                                                                                        @endif
-                                                                                                    @empty
-                                                                                                    @endforelse
-                                                                                                @endif
-
-                                                                                                <hr>
-                                                                                            </div>
-
-                                                                                        </div>
-                                                                                    @endif
-                                                                                    @if($research->supervisorexternal != null)
-                                                                                        <b>External Supervisor: </b>
-                                                                                        <br>
-                                                                                        {{$research->supervisorexternal->supervisor_name}}-{{$research->supervisorexternal->institution}}
-                                                                                    @endif
-                                                                                    <hr>
-                                                                                @endforeach
+                                                                                    @include('arsys::livewire.supervise.supervise-idx', ['id' => $research->id])
                                                                                 </div>
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="col-md offset-md-0">
-                                                                                    <i class="fas fa-tasks"></i><b> To-do List</b>
-
-                                                                                    @if($research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'SE')->first()->id ||
-                                                                                        $research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'PI')->first()->id)
-
-                                                                                                @if($research->research_milestone != 10 && $research->research_milestone != 0)
-                                                                                                <button wire:click="$emit('createTodoComponent', {{$research->id}})" class="btn btn-sm "><i class="fas fa-plus-circle"></i> Add</button>
-
-                                                                                                @endif
-                                                                                            @endif
-                                                                                    @if($research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'TA')->first()->id ||
-                                                                                        $research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'SK')->first()->id ||
-                                                                                        $research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'TM')->first()->id ||
-                                                                                        $research->research_type == \Modules\ArSys\Entities\ResearchType::where('code', 'DD')->first()->id)
-                                                                                                @if($research->research_milestone != 0 && $research->research_milestone != 17)
-                                                                                                <button wire:click="$emit('createTodoComponent', {{$research->id}})" class="btn btn-sm "><i class="fas fa-plus-circle"></i> Add</button>
-
-                                                                                                @endif
-                                                                                            @endif
-                                                                                    <br>
-                                                                                    @if($research->todo != null)
-                                                                                        @php($counter = 0)
-                                                                                        @foreach($research->todo as $todo)
-                                                                                            @if($counter < 2)
-                                                                                                @php(++$counter)
-                                                                                                    <button class="btn btn-sm" wire:click="$emit('todoCompleted', {{$todo->id}})"> <i class="fa fa-check-square fa-sm" style ="color:gray" aria-hidden="true"></i>
-                                                                                                    </button>
-                                                                                                    <a href="#" wire:click="$emit('singleTodoComponent', {{$todo->id}})">
-                                                                                                        <u>{{$todo->todo_title}}</u>
-                                                                                                    </a>
-                                                                                                    <br>
-                                                                                            @endif
-                                                                                        @endforeach
-                                                                                        @if($research->todo->count() > 2)
-                                                                                            <a href="#" wire:click="$emit('allTodoComponent', {{$research->id}})">
-                                                                                            <u>And more {{$research->todo->count()-$counter}} uncompleted todo...</u>
-                                                                                            </a>
-                                                                                        @endif
-                                                                                        <br>
-                                                                                    @endif
-
-                                                                                    @if($research->completedtodo != null)
-                                                                                        @php($counter = 0)
-                                                                                        @foreach($research->completedtodo as $todo)
-
-                                                                                            @if($counter < 2)
-                                                                                                @php(++$counter)
-                                                                                                    <button class="btn btn-sm" wire:click="$emit('todoUncompleted', {{$todo->id}})"> <i class="fa fa-check-square fa-sm" style ="color:green" aria-hidden="true"></i>
-                                                                                                    </button>
-                                                                                                    <a href="#" wire:click="$emit('singleTodoComponent', {{$todo->id}})">
-                                                                                                        <u>{{$todo->todo_title}}</u>
-                                                                                                    </a>
-                                                                                                    <br>
-                                                                                            @endif
-                                                                                        @endforeach
-                                                                                        @if($research->completedtodo->count() > 2)
-                                                                                            <a href="#" wire:click="$emit('allTodoComponent', {{$research->id}})">
-                                                                                            <u>And more {{$research->completedtodo->count()-$counter}} completed todo...</u>
-                                                                                            </a>
-                                                                                        @endif
-                                                                                        <br>
-                                                                                    @endif
-
+                                                                                    @include('arsys::livewire.todo.todo-idx', ['id' => $research->id])
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -685,6 +564,11 @@
                                                                 @elseif($research->research_milestone == 4 || $research->research_milestone == 5)
                                                                     @include('arsys::livewire.research.student.home-warning')
                                                                 @endif
+                                                                <div class="row">
+                                                                    <div class="col-md-12 offset-md-0">
+                                                                        @livewire('arsys::research.student.history')
+                                                                    </div>
+                                                                </div>
                                                                 @endif
                                                             </div>
                                                         <br>
@@ -719,11 +603,7 @@
     @livewire('arsys::research.student.document.submit')
     @livewire('arsys::event.student.apply')
     @livewire('arsys::event.student.applicant')
-    @livewire('arsys::supervise.create')
-    @livewire('arsys::supervise.discussion')
-    @livewire('arsys::todo.create')
-    @livewire('arsys::todo.all-to-do')
-    @livewire('arsys::todo.single-to-do')
+    
     @livewire('arsys::defense.student.submit-report')
     @livewire('arsys::defense.student.edit-report')
     @include('arsys::livewire.sweetalert.success-alert')

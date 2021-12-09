@@ -103,7 +103,8 @@ class Create extends Component
             }
         }
 
-        $this->emit('refreshResearchIndex');
+        $this->emit('refreshSuperviseIndex');
+        $this->emit('refreshStudentResearchPage');
     }
 
 

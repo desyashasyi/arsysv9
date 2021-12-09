@@ -78,7 +78,9 @@ Route::prefix('arsys')->group(function() {
     Route::get('/research/clerk/dashboard', 'ResearchController@dashboard_Clerk')->name('arsys.research.clerk.dashboard');
 
     //specialization
+    
     Route::get('/research/specialization/in-progress', 'ResearchController@inProgress_Specialization')->name('arsys.research.specialization.in-progress');
+    Route::get('/research/specialization/expired', 'ResearchController@expired_Specialization')->name('arsys.research.specialization.expired');
     Route::get('/research/specialization/completed', 'ResearchController@completed_Specialization')->name('arsys.research.specialization.completed');
 
     //Faculty

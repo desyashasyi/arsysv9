@@ -39,8 +39,16 @@ class ResearchController extends Controller
 
     public function inProgress_Specialization(){
         $user = Auth::user();
-        if ($user != null && $user->hasRole('faculty')){
+        if ($user != null && $user->hasRole('specialization')){
             return view ('arsys::livewire.research.specialization.progress-idx');
+        }else
+            return redirect()->route('arsys');
+    }
+
+    public function expired_Specialization(){
+        $user = Auth::user();
+        if ($user != null && $user->hasRole('specialization')){
+            return view ('arsys::livewire.research.specialization.expired-idx');
         }else
             return redirect()->route('arsys');
     }

@@ -23,7 +23,9 @@
                                 @if (($student->program != null) && ($student->student_number != null))
                                     {{$student->program->code}}.{{$student->student_number}}
                                     <br>
-                                    {{$student->specialization->description}} {{$student->program->abbrev}}
+                                    @if($student->specialization != null)
+                                        {{$student->specialization->description}} {{$student->program->abbrev}}
+                                    @endif
                                 @endif
                                 <br>
                                 <b>{{$student->first_name}} {{$student->last_name}}</b>

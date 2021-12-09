@@ -846,6 +846,13 @@ return [
         ],
 
         [
+            'text' => 'Expired',
+            'route'  => 'arsys.research.specialization.expired',
+            'icon' => 'fas fa-fw fa-user-circle',
+            'roles' => 'specialization',
+        ],
+
+        [
             'text' => 'Completed',
             'route'  => 'arsys.research.specialization.completed',
             'icon' => 'fas fa-fw fa-user-circle',

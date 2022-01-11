@@ -514,8 +514,10 @@
                                                                                             )
 
                                                                                             @if($applicant->room != null && $applicant->applicantroom != NULL)
-                                                                                                <a href="{{$applicant->applicantroom->space->link}}" target="_blank"><u>{{$applicant->event->type->description}}
-                                                                                                {{ \Carbon\Carbon::parse($applicant->event->event_date)->format('d-m-Y') }}</u></a>
+                                                                                                @if($applicant->applicantroom->space != NULL)
+                                                                                                    <a href="{{$applicant->applicantroom->space->link}}" target="_blank"><u>{{$applicant->event->type->description}}
+                                                                                                    {{ \Carbon\Carbon::parse($applicant->event->event_date)->format('d-m-Y') }}</u></a>
+                                                                                                @endif
                                                                                             @else
                                                                                                 {{$applicant->event->type->description}}
                                                                                                 {{ \Carbon\Carbon::parse($applicant->event->event_date)->format('d-m-Y') }}

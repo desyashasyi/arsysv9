@@ -107,6 +107,10 @@ class Research extends Model
         return $this->hasOne(ResearchFile::class, 'research_id', 'id')->where('file_type', ResearchFileType::where('code', 'PDFART')->first()->id);
     }
 
+    public function STEThesis(){
+        return $this->hasOne(ResearchFile::class, 'research_id', 'id')->where('file_type', ResearchFileType::where('code', 'DRAFTTHESIS')->first()->id);
+    }
+
     public function docxartdoc(){
         return $this->hasOne(ResearchFile::class, 'research_id', 'id')->where('file_type', ResearchFileType::where('code', 'DOCXART')->first()->id);
     }

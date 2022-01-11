@@ -133,12 +133,23 @@
                                                 @php($number = 0)
                                                 @foreach($room->applicant as $number => $applicant)
                                                     {{++$number}}.
-                                                    @if($applicant->research->pdfartdoc)
-                                                        <a href="{{url('/')}}{{ Storage::disk('local')->url($applicant->research->pdfartdoc->filename)}}" target="blank"><i class="fa fa-xs fa-file-pdf" aria-hidden="true"></i>
-                                                            <u>{{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}</u>
-                                                        </a>
-                                                    @else
-                                                        {{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}
+                                                    @if($event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'PUB')->first()->id)
+                                                        @if($applicant->research->pdfartdoc)
+                                                            <a href="{{url('/')}}{{ Storage::disk('local')->url($applicant->research->pdfartdoc->filename)}}" target="blank"><i class="fa fa-xs fa-file-pdf" aria-hidden="true"></i>
+                                                                <u>{{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}</u>
+                                                            </a>
+                                                        @else
+                                                            {{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}
+                                                        @endif
+                                                    @endif
+                                                    @if($event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'STE')->first()->id)
+                                                        @if($applicant->research->STEThesis)
+                                                            <a href="{{url('/')}}{{ Storage::disk('local')->url($applicant->research->STEThesis->filename)}}" target="blank"><i class="fa fa-xs fa-file-pdf" aria-hidden="true"></i>
+                                                                <u>{{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}</u>
+                                                            </a>
+                                                        @else
+                                                            {{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}
+                                                        @endif
                                                     @endif
                                                     <br>
                                                 @endforeach

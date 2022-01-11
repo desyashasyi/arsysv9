@@ -19,7 +19,6 @@ class UpcomingSeminar extends Component
     public function render()
     {
         $events = Event::where('status', 1)->where('event_date', '>=', Carbon::today())
-        ->where('status', null)
         ->get();
         return view('arsys::livewire.event.faculty.upcoming-seminar', compact('events'));
     }

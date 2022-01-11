@@ -115,6 +115,14 @@ class Applicant extends Component
         SeminarExaminer::where('id', $examiner_id)->delete();
     }
 
+    public function unAssignApplicant($applicant_id){
+        EventApplicant::where('id', $applicant_id)->update([
+            'room_id' => NULL,
+            'session_id' => NULL,
+            'space_id' => NULL,
+        ]);
+    }
+
     public function scheduleCompleted(){
         $applicants = EventApplicant::where('event_id', $this->eventId)->get();
         foreach($applicants as $applicant){

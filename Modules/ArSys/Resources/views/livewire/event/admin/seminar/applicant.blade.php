@@ -179,24 +179,27 @@
 
                                 <td>
                                     @foreach($room->applicant as $applicant)
-                                        {{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}
-                                        |
-                                        @if($applicant->research->supervisor != null)
-                                            @forelse ($applicant->research->supervisor as $supervisor)
-                                                <i>{{$supervisor->faculty->code}}</i>
-                                                &nbsp;
-                                            @empty
-                                            @endforelse
-                                        @endif
-                                        |
-                                        @if($applicant->previous != null)
-                                            @foreach ($applicant->previous->examiner as $examiner)
-                                                @if($examiner->presence != null)
-                                                    <i>{{$examiner->faculty->code}}</i>
+                                        <button class="btn btn-sm" wire:click="unAssignApplicant({{$applicant->id}})"><i class="fa fa-xs fa-user-minus" style="color:red" aria-hidden="true"></i>
+                                       
+                                            {{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}
+                                            |
+                                            @if($applicant->research->supervisor != null)
+                                                @forelse ($applicant->research->supervisor as $supervisor)
+                                                    <i>{{$supervisor->faculty->code}}</i>
                                                     &nbsp;
-                                                @endif
-                                            @endforeach
-                                        @endif
+                                                @empty
+                                                @endforelse
+                                            @endif
+                                            |
+                                            @if($applicant->previous != null)
+                                                @foreach ($applicant->previous->examiner as $examiner)
+                                                    @if($examiner->presence != null)
+                                                        <i>{{$examiner->faculty->code}}</i>
+                                                        &nbsp;
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </button>
                                         <br>
                                     @endforeach
                                 </td>

@@ -73,4 +73,13 @@ class EventController extends Controller
             return redirect()->route('arsys');
     }
 
+    public function space_Admin(){
+        $user = Auth::user();
+        if($user != null && $user->hasRole('admin')){
+            return view ('arsys::livewire.event.admin.space-idx');
+        }
+        else
+            return redirect()->route('arsys');
+    }
+
 }

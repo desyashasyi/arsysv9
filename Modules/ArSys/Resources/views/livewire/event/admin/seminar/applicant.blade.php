@@ -330,7 +330,6 @@
                     <th width="25%">Student</th>
                     <th width="30%">Research</th>
                     <th class="text-center" width="10%">SPV</th>
-                    <th class="text-center" width="10%">EXA</th>
                     <th class="text-center" width="15%">Room</th>
                     <th class="text-right" width="5%">Action</th>
 
@@ -371,22 +370,7 @@
                                 @endif
                             </td>
 
-                            <td class="text-center">
-                                @if($applicant->previous != null)
-                                    @foreach ($applicant->previous->examiner as $examiner)
-                                        @if($examiner->presence != null)
-                                            @foreach($rooms as $room)
-                                                @if($room->examiner->contains('examiner_id', $examiner->examiner_id))
-                                                    <i class="fa fa-xs fa-check-circle" style="color:green" aria-hidden="true"></i>
-                                                @endif
-                                            @endforeach
-                                            {{$examiner->faculty->code}}
-                                            <br>
-                                        @endif
-                                    @endforeach
-                                @endif
-                            </td>
-
+                            
                             <td class="text-center">
                                 @if($applicant->room != null)
                                     @foreach($applicant->room as $room)
@@ -405,7 +389,7 @@
                                 @endif
                             </td>
                             <td class="text-right">
-                                <button wire:click = "$emit('eventChangeScheduleComponent', {{$applicant->id}})" class="btn btn-sm"><i class="fa fa-edit"></i></button>
+                                <button wire:click = "$emit('eventChangeScheduleComponent', {{$applicant->id}}, 'Seminar')" class="btn btn-sm"><i class="fa fa-edit"></i></button>
                             </td>
                         </tr>
                     @empty

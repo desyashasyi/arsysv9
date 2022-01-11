@@ -687,6 +687,12 @@ return [
             'icon' => 'fas fa-fw fa-user-circle',
             'roles' => 'admin',
         ],
+        [
+            'text' => 'Space',
+            'route'  => 'arsys.event.admin.space',
+            'icon' => 'fas fa-fw fa-user-circle',
+            'roles' => 'admin',
+        ],
 
         [
             'text' => 'Written Research',

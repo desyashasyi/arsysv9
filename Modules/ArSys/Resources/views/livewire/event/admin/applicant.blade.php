@@ -118,7 +118,7 @@
                                 <!--<button data-toggle="modal" data-target="#applicantDefenseSettingModal" wire:click = "applicantDefenseSetting({{$applicant->id}})" class="btn btn-md"><i class="fa fa-cog"></i></button>
                                 -->
                                 <button wire:click = "$emit('emiterEventAdminDefenseSetting', {{$applicant->id}})" class="btn btn-sm"><i class="fa fa-cogs"></i></button>
-                                <button wire:click = "$emit('eventChangeScheduleComponent', {{$applicant->id}})" class="btn btn-sm"><i class="fa fa-cog"></i></button>
+                                <button wire:click = "$emit('eventChangeScheduleComponent', {{$applicant->id}},'Defense')" class="btn btn-sm"><i class="fa fa-cog"></i></button>
                             </td>
                         </tr>
                     @empty

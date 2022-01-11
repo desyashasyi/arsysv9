@@ -138,6 +138,7 @@ Route::prefix('arsys')->group(function() {
      */
 
     Route::get('/event/admin', 'EventController@admin')->name('arsys.event.admin');
+    Route::get('/event/admin/space', 'EventController@space_Admin')->name('arsys.event.admin.space');
     Route::get('/event/admin/applicant/{id}', 'EventController@applicant_Admin')->name('arsys.event.admin.applicant');
     Route::get('/event/admin/presence/{id}', 'EventController@presence_Admin')->name('arsys.event.admin.presence');
 

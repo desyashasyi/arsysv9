@@ -19,33 +19,18 @@
                         <select id='researchType' style='width: 250px;'>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="researchFile">Title</label>
-                        <br>
-                        <textarea rows="2" wire:model = "researchTitle" class="form-control">fafsafasfa</textarea>
-                        @error('researchTitle') <span class="text-danger">{{ $message }}</span>@enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="researchFile">Abstract</label>
-                        <br>
-                        <textarea rows="3" wire:model = "researchAbstract" class="form-control"></textarea>
-                        @error('researchAbstract') <span class="text-danger">{{ $message }}</span>@enderror
-                    </div>
-
-                    <div class="form-group">
-                        <label for="researchFile">File</label>
-                        <br>
-                        <input type="file" wire:model="researchFile">
-                        <br>
-                        @error('researchFile') <span class="text-danger">{{ $message }}</span> @enderror
-                    </div>
-
                 </form>
+
+                @if($researchType != null)
+                    @if($researchType != \Modules\ArSys\Entities\ResearchType::where('code','PI')->first()->id)
+                        @include('arsys::livewire.research.student.modal.research')
+                    @else
+                        @include('arsys::livewire.research.student.modal.industrial') 
+                    @endif
+                @endif
 
             </div>
             <div class="modal-footer">
-                <button type="button" wire:click.prevent="researchStore" class="btn btn-success btn-sm" ><i class="fa fa-paper-plane"></i> Submit</button>
             </div>
 
        </div>

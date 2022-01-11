@@ -4,6 +4,7 @@ namespace Modules\ArSys\Http\Livewire\Research\Specialization;
 use Livewire\Component;
 use Modules\ArSys\Entities\AcademicYear;
 use Modules\ArSys\Entities\Research;
+use Modules\ArSys\Entities\ResearchType;
 use Livewire\WithPagination;
 use Auth;
 
@@ -18,8 +19,10 @@ class Expired extends Component
         $researchs = Research::whereHas('student', function($query){
                 $query->where('specialization_id', Auth::user()->faculty->specialization_id);
             })
-            //->where('academic_year_id', $academicYear->id)
-            ->where('approval_date', '<', $academicYear->start)->paginate(25);
+            ->where('approval_date', '<', $academicYear->start)
+            ->where('research_milestone','!=', 17)
+            ->orderBy('student_id', 'ASC')
+            ->paginate(25);
 
         return view('arsys::livewire.research.specialization.expired', compact('researchs', 'academicYear'));
     }

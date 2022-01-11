@@ -222,7 +222,7 @@
                                     </button>
                                 </td>
                                 <td>
-                                    <button wire:click="$emit('seminarExaminerComponent', {{$room->id}})" class="btn btn-sm">
+                                    <button wire:click="$emit('seminarDeleteRoomComponent', {{$room->id}}, {{$room->event->id}})" class="btn btn-sm">
                                         Delete <i class="fa fa-sm fa-trash" style="color:red" aria-hidden="true"></i>
                                     </button>
 

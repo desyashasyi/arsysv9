@@ -95,4 +95,50 @@ class Create extends Component
         session()->flash('success', 'Research proposal has been successfully created');
         $this->emit('refreshResearchIndex');
     }
+
+
+    public function industrialStore(){
+        $this->validate([
+            'researchTitle' => 'required',
+            'researchAbstract' => 'required',
+            'researchType' => 'required',
+            'researchFile' => "required|mimetypes:application/pdf|max:10000",
+        ]);
+
+
+        /**
+         * Check amount of research data
+         */
+
+        $researchCounter = Research::where('research_type', $this->researchType)
+            ->where('student_id', $this->user->student->id)
+            ->count();
+        $research_code = ResearchType::where('id',$this->researchType)->first()->code
+                            .'-'.$this->user->student->student_number.'-'.(strval($researchCounter+1));
+        
+        dd($researchCounter);
+        if($researchCounter == null){
+            Research::create([
+                'student_id' => $this->user->student->id,
+                'title' => $this->researchTitle,
+                'abstract' => $this->researchAbstract,
+                'research_type' => $this->researchType,
+                'research_milestone' => 6,
+                'research_code' => $research_code,
+            ]);
+
+            $research = Research::where('research_code', $research_code)->first();
+            $filename = $this->researchFile->storeAs('proposal', $research_code.'-proposal.pdf','public');
+            $file = [
+                'research_id' => $research->id,
+                'file_type' => ResearchFiletype::where('code', 'PIREPORT')->first()->id,
+                'filename' => $filename,
+            ];
+            ResearchFile::create($file);
+            session()->flash('success', 'Report of industrial practical word has been successfully created');
+            $this->emit('refreshResearchIndex');
+        }
+        
+        
+    }
 }

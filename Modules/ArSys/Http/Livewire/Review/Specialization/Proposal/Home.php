@@ -53,7 +53,7 @@ class Home extends Component
                         ->where('research_milestone', 2)->orwhere('research_milestone', 3)
                         ->where('status', null);
                     })
-            ->orderBy('first_name', 'ASC')
+            ->orderBy('student_id', 'ASC')
             ->paginate(10);
 
         if ($this->search !== null) {
@@ -64,7 +64,7 @@ class Home extends Component
                         ->where('status', null);
                     })
                 ->where('first_name', 'like', '%' . $this->search . '%')
-                ->orderBy('first_name', 'ASC')
+                ->orderBy('student_id', 'ASC')
                 ->paginate(10);
         }
 

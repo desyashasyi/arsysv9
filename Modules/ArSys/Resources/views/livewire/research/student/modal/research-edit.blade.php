@@ -20,40 +20,18 @@
                     <select id='researchTypeEdit' style='width: 250px;'>
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label for="researchFile">Title</label>
-                    <br>
-                    <textarea rows="2" wire:model = "researchTitle" class="form-control">fafsafasfa</textarea>
-                    @error('researchTitle') <span class="text-danger">{{ $message }}</span>@enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="researchFile">Abstract</label>
-                    <br>
-                    <textarea rows="3" wire:model = "researchAbstract" class="form-control"></textarea>
-                    @error('researchAbstract') <span class="text-danger">{{ $message }}</span>@enderror
-                </div>
-
-                <div class="form-group">
-                    <label for="researchFile">File</label>
-                    <br>
-                    @if ($researchData != null)
-                        @if ($researchData->file != null)
-                            <a href="{{url('/')}}{{ Storage::disk('local')->url($researchData->file->filename)}}" target="blank">{{$researchData->research_code}}.pdf</a>
-                        @endif
-                    @endif
-                    <br>
-                    <input type="file" wire:model="researchFile">
-                    <br>
-                    @error('researchFile') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
-
             </form>
+
+                @if($researchType != null)
+                @if($researchType != \Modules\ArSys\Entities\ResearchType::where('code','PI')->first()->id)
+                    @include('arsys::livewire.research.student.modal.research')
+                @else
+                    @include('arsys::livewire.research.student.modal.industrial') 
+                @endif
+            @endif
             </div>
 
             <div class="modal-footer">
-                <button type="button" wire:click.prevent="researchUpdate" class="btn btn-warning btn-sm" ><i class="fa fa-paper-plane"></i> Submit</button>
             </div>
 
        </div>

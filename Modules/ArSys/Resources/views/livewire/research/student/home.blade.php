@@ -513,7 +513,7 @@
                                                                                             $applicant->event->event_type == \Modules\ArSys\Entities\EventType::where('defense_model', 'Seminar')->first()->id
                                                                                             )
 
-                                                                                            @if($applicant->room != null)
+                                                                                            @if($applicant->room != null && $applicant->applicantroom != NULL)
                                                                                                 <a href="{{$applicant->applicantroom->space->link}}" target="_blank"><u>{{$applicant->event->type->description}}
                                                                                                 {{ \Carbon\Carbon::parse($applicant->event->event_date)->format('d-m-Y') }}</u></a>
                                                                                             @else

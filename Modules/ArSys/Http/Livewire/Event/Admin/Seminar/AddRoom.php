@@ -6,7 +6,11 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\ArSys\Entities\Faculty;
 use Modules\ArSys\Entities\Event;
+use Modules\ArSys\Entities\EventApplicant;
 use Modules\ArSys\Entities\SeminarRoom;
+use Modules\ArSys\Entities\SeminarExaminer;
+use Modules\ArSys\Entities\SeminarModerator;
+
 
 
 class AddRoom extends Component
@@ -21,6 +25,7 @@ class AddRoom extends Component
     public $spaceId;
     public $sessionId;
     protected $listeners = ['seminarAddRoomComponent' => 'addRoom',
+                            'seminarDeleteRoomComponent' => 'deleteRoom',
                             'selectEventSessionSetting' => 'sessionEventSetting',
                             'selectEventSpaceSetting' => 'spaceEventSetting'
                             ];
@@ -89,6 +94,19 @@ class AddRoom extends Component
     }
 
     public function closeModal(){
+        $this->emit('refreshSeminarApplicant');
+    }
+
+    public function deleteRoom($room_id, $event_id){
+        $students = EventApplicant::where('event_id', $event_id)->where('room_id', $room_id)
+            ->update([
+                'room_id' => NULL,
+                'space_id' => NULL,
+                'session_Id' => NULL,
+            ]);
+        SeminarExaminer::where('room_id', $room_id)->delete();
+        SeminarModerator::where('room_id', $room_id)->delete();
+        SeminarRoom::where('id', $room_id)->delete();
         $this->emit('refreshSeminarApplicant');
     }
 }

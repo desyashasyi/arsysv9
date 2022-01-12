@@ -1,18 +1,7 @@
 <div>
-    @foreach($events as $event)
-        @if($event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'PUB')->first()->id
-            ||
-            $event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'STE')->first()->id
-            )
+    @php($currentRoom = null)
             @if($event->room != null)
-                <div class="row">
-                    <div class="col-md-12 offset-md-0">
-                        <b><i>
-                        {{$event->type->description}} {{ \Carbon\Carbon::parse($event->event_date)->format('l,') }}
-                        {{ \Carbon\Carbon::parse($event->event_date)->format('d F Y')}}
-                        </i></b>
-                    </div>
-                </div>
+               
                 <div class="row">
                     <div class="table-responsive users-table">
                         <table class="table table-striped table-sm data-table">
@@ -192,74 +181,7 @@
                         </table>
                     </div>
                 </div>
-                @if($event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'STE')->first()->id)
-                    <div class="row">
-                        <div class="table-responsive users-table">
-                            <table class="table table-striped table-sm data-table">
-                                <thead class="thead">
-                                    <tr>
-                                        <th width="10%">Code</th>
-                                        <th width="20%">Schedule</th>
-                                        <th text-align="right" width="25%">Participants</th>
-                                        <th text-align="left" width="10%">Mark</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="users-table">
-                                    @foreach($room->applicant as $applicant)
-                                        @if($applicant->supervisor->contains('supervisor_id', Auth::user()->faculty->id))
-                                            @if($currentRoom != $room->id)
-                                                <tr>
-                                                    <td>
-                                                        {{$room->room_code}}
-                                                    </td>
-                                                    <td>
-                                                        {{\Carbon\Carbon::parse($event->event_date)->format('d F Y')}}
-                                                        <br>
-                                                        {{$room->session->time}}
-                                                    </td>
-                                                    <td text-align="right">
-                                                        @foreach($room->applicant as $applicant)
-                                                            @if($applicant->supervisor->contains('supervisor_id', Auth::user()->faculty->id))
-                                                                {{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}
-                                                                <br>
-                                                            @endif
-                                                        @endforeach
-                                                        <br>
-
-                                                    </td>
-                                                    <td text-align="left">
-                                                        @foreach($room->examiner as $examiner)
-                                                            @if($examiner->examiner_id == Auth::user()->faculty->id)
-                                                                @if($examiner->score != null)
-                                                                    @foreach($examiner->score as $score)
-                                                                        <a class="btn btn-xs" wire:click="$emit('submitSeminarScoreComponent_Faculty', {{$score->id}})">
-                                                                            <i class="fa fa-xs fa-edit" style="color:green"  aria-hidden="true"></i>
-                                                                            <u>
-                                                                            @if($score->mark != null)
-                                                                                {{$score->mark}}
-                                                                            @else
-                                                                                NULL
-                                                                            @endif
-                                                                            </u>
-                                                                        </a>
-                                                                        <br>
-                                                                    @endforeach
-                                                                @endif
-                                                            @endif
-                                                        @endforeach
-                                                    </td>
-                                                </tr>
-                                            @endif
-                                        @endif
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                @endif
             @endif
-        @endif
-    @endforeach
     @livewire('arsys::seminar.faculty.submit-score')
     @livewire('arsys::event.admin.seminar.add-moderator')
 </div>

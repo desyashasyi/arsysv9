@@ -675,11 +675,7 @@ return [
           'roles' => 'admin'
         ],
 
-        [ 'text'  => 'System Config',
-          'route' => 'arsys.config.admin.home',
-          'icon'  => 'far fa-fw fa-user',
-          'roles' => 'admin'
-        ],
+        
 
         [
             'text' => 'Event',
@@ -687,12 +683,7 @@ return [
             'icon' => 'fas fa-fw fa-user-circle',
             'roles' => 'admin',
         ],
-        [
-            'text' => 'Space',
-            'route'  => 'arsys.event.admin.space',
-            'icon' => 'fas fa-fw fa-user-circle',
-            'roles' => 'admin',
-        ],
+        
 
         [
             'text' => 'Written Research',
@@ -703,6 +694,22 @@ return [
 
 
 
+        ['header' => 'Config',
+
+        'roles' => 'admin'
+        ],
+        [
+            'text' => 'Space',
+            'route'  => 'arsys.config.admin.space',
+            'icon' => 'fas fa-fw fa-user-circle',
+            'roles' => 'admin',
+        ],
+
+        [ 'text'  => 'System',
+          'route' => 'arsys.config.admin.home',
+          'icon'  => 'far fa-fw fa-user',
+          'roles' => 'admin'
+        ],
 
         /*['header' => 'Assignment ArXiv',
 

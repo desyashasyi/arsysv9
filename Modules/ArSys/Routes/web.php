@@ -36,6 +36,7 @@ Route::prefix('arsys')->group(function() {
     Route::get('/utilities/admin/set-academic-year', 'UtilitiesController@setAcademicYear')->name('arsys.utilities.admin.set-academic-year');
 
     Route::get('/config/admin', 'ConfigController@home')->name('arsys.config.admin.home');
+    Route::get('/config/admin/space', 'ConfigController@space_Admin')->name('arsys.config.admin.space');
 
     /**
      * USER
@@ -138,7 +139,6 @@ Route::prefix('arsys')->group(function() {
      */
 
     Route::get('/event/admin', 'EventController@admin')->name('arsys.event.admin');
-    Route::get('/event/admin/space', 'EventController@space_Admin')->name('arsys.event.admin.space');
     Route::get('/event/admin/applicant/{id}', 'EventController@applicant_Admin')->name('arsys.event.admin.applicant');
     Route::get('/event/admin/presence/{id}', 'EventController@presence_Admin')->name('arsys.event.admin.presence');
 

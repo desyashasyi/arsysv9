@@ -1,6 +1,4 @@
 <div>
-    @foreach($events as $event)
-
         @if($event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'PRE')->first()->id)
             <div class="row">
                 <div class="col-md-12 offset-md-0">
@@ -75,7 +73,7 @@
                                             @endif
 
                                             <br>
-                                            <a class="btn btn-xs btn-info" wire:click="printAssignment({{$applicant->id}})"><i class="fa fa-print" aria-hidden="true"></i>
+                                            <a class="btn btn-xs btn-info" wire:click="preDefensePrintAssignment({{$applicant->id}})"><i class="fa fa-print" aria-hidden="true"></i>
                                                 Print assignment
                                             </a>
 
@@ -173,8 +171,6 @@
                 </div>
             </div>
         @endif
-    @endforeach
-
 
     @livewire('arsys::defense.faculty.submit-score')
     @livewire('arsys::defense.faculty.add-examiner')

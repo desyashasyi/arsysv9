@@ -16,4 +16,13 @@ class ConfigController extends Controller
         else
             return redirect()->route('arsys');
     }
+
+    public function space_Admin(){
+        $user = Auth::user();
+        if($user != null && $user->hasRole('admin')){
+            return view ('arsys::livewire.config.admin.space.home-idx');
+        }
+        else
+            return redirect()->route('arsys');
+    }
 }

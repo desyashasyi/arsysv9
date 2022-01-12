@@ -7,14 +7,13 @@
             <div class="card">
 
                 <div class="card-header">
-                    Space | Space administration
+                    Config | Space configuration
                 </div>
                 <div class="card-body">
-                    @livewire('arsys::event.admin.space')
+                    @livewire('arsys::config.admin.space.home')
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-

@@ -26,7 +26,7 @@ class Upcoming extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $events = Event::where('status', 1)->where('event_date', '>=', Carbon::today())
+        $events = Event::where('status', 1)->where('event_date', '>=', Carbon::today()->subDay(1))
         ->orderBy('event_date', 'ASC')
         ->paginate(1);
         return view('arsys::livewire.event.faculty.upcoming', compact('events'));

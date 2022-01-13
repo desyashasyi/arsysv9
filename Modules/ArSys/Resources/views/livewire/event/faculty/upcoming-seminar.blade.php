@@ -1,7 +1,6 @@
 <div>
     @php($currentRoom = null)
             @if($event->room != null)
-               
                 <div class="row">
                     <div class="table-responsive users-table">
                         <table class="table table-striped table-sm data-table">
@@ -182,6 +181,57 @@
                     </div>
                 </div>
             @endif
+            <div class="row">
+                <div class="col-md-12 offset-md-0">
+                   @foreach($event->applicant as $applicant)
+                        @if($applicant->research->supervisor->contains('supervisor_id', Auth::user()->faculty->id))
+                            @foreach($applicant->research->supervisor as $supervisor)
+                                @if($supervisor->supervisor_id == Auth::user()->faculty->id)
+                                <div class="table-responsive users-table">
+                                    <table class="table table-striped table-sm data-table">
+                                        <thead class="thead">
+                                            <tr>
+                                                <th width="35%">Student</th>
+                                                <th text-align="right" width="40%">Participants</th>
+                                                <th text-align="left" width="10%">Mark</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="users-table">
+                                            <tr>
+                                                <td>
+                                                    {{$applicant->research->student->program->code}}.{{$applicant->research->student->student_number}}
+                                                    <br>
+                                                    {{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}
+                                                </td>
+                                                <td>
+                                                    {{$applicant->research->research_code}}<br>
+                                                    {{$applicant->research->title}}
+                                                </td>
+                                                <td>
+                                                    <u wire:click="$emit('submitSeminarScoreComponent_FacultySupervisor', {{$supervisor->id}}, {{$event->id}}, {{$applicant->id}})" style="cursor:pointer">
+                                                        <i class="fa fa-xs fa-arrow-circle-up" aria-hidden="true" style="color:green"></i>
+                                                        @foreach($supervisor->supervisorscore as $score)
+                                                            @if($score->mark != NULL)
+                                                                {{$score->mark}}
+                                                            @else
+                                                                NULL
+                                                            @endif
+                                                        @endforeach
+                                                        @if($supervisor->supervisorscore->isEmpty())
+                                                            NULL
+                                                        @endif
+                                                    </u>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                @endif
+                            @endforeach
+                        @endif
+                   @endforeach
+                </div>
+            </div>
     @livewire('arsys::seminar.faculty.submit-score')
     @livewire('arsys::event.admin.seminar.add-moderator')
 </div>

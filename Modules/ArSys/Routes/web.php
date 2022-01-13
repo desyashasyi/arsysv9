@@ -160,6 +160,7 @@ Route::prefix('arsys')->group(function() {
     //Route::get('/score/program-leader/defense-score', 'DefenseScoreController@defenseScore_ProgramLeader')->name('arsys.score.program-leader.defense-score');
     Route::get('/defense/program/pre-defense', 'DefenseController@preDefense_ProgramLeader')->name('arsys.defense.program.pre-defense');
     Route::get('/defense/program/seminar-mark', 'DefenseController@seminarMark_ProgramLeader')->name('arsys.seminar.program.seminar-mark');
+    Route::get('/defense/program/final-defense', 'DefenseController@finalDefense_ProgramLeader')->name('arsys.seminar.program.final-defense');
     Route::get('/defense/program/pre-defense-all', 'DefenseController@preDefenseAll_ProgramLeader')->name('arsys.defense.program.pre-defense-all');
 
 

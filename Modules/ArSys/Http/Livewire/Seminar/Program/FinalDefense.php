@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 use Auth;
 
-class SeminarMark extends Component
+class FinalDefense extends Component
 {
     use WithPagination;
     public $search;
@@ -21,7 +21,7 @@ class SeminarMark extends Component
     public function render()
     {
         $events = Event::where('status', 1)
-            ->where('event_type', EventType::where('abbrev', 'STE')->first()->id)
+            ->where('event_type', EventType::where('abbrev', 'PUB')->first()->id)
             ->whereHas('applicant', function($query){
                 $query->whereHas('research', function($query){
                     $query->whereHas('student', function($query){
@@ -33,7 +33,7 @@ class SeminarMark extends Component
             ->paginate(1);
         if ($this->search !== null) {
             $events = Event::where('status', 1)
-                ->where('event_type', EventType::where('abbrev', 'STE')->first()->id)
+                ->where('event_type', EventType::where('abbrev', 'PUB')->first()->id)
                 ->whereHas('applicant', function($query){
                     $query->whereHas('research', function($query){
                         $query->whereHas('student', function($query){
@@ -44,7 +44,7 @@ class SeminarMark extends Component
                 ->orderBy('event_date', 'DESC')
                 ->paginate(1);
         }
-        return view('arsys::livewire.seminar.program.seminar-mark', compact('events'));
+        return view('arsys::livewire.seminar.program.final-defense', compact('events'));
     }
 
     public function printReport($event_id){

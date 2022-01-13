@@ -513,18 +513,24 @@ return [
         'roles' => 'program'
         ],
 
-        [ 'text' =>'Event of Final-defense',
+        /*[ 'text' =>'Event of Final-defense',
           'route' => 'arsys.event.program.upcoming-seminar',
           'icon'  => 'far fa-fw fa-user',
           'roles' => 'program'
         ],
-
+        */
         [ 'text' =>'Mark of Pre-defense',
           'route' => 'arsys.defense.program.pre-defense',
           'icon'  => 'far fa-fw fa-user',
           'roles' => 'program'
         ],
         [ 'text' =>'Mark of Final-defense',
+          'route' => 'arsys.seminar.program.final-defense',
+          'icon'  => 'far fa-fw fa-user',
+          'roles' => 'program'
+        ],
+
+        [ 'text' =>'Mark of Seminar',
           'route' => 'arsys.seminar.program.seminar-mark',
           'icon'  => 'far fa-fw fa-user',
           'roles' => 'program'

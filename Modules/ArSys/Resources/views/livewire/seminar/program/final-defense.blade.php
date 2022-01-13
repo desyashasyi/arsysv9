@@ -46,16 +46,35 @@
                             <tr>
                                 <th valign= "center" rowspan="2" width="2%">No</th>
                                 <th valign= "center" rowspan="2" width="33%">Student</th>
-                                   @if($event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'STE')->first()->id)
+                                @if($event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'PUB')->first()->id)
+                                    <th class="text-center" colspan="2">
+                                        Pre Defense
+                                    </th>
+                                @endif
+
+                                    @if($event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'PUB')->first()->id)
+                                        <th class="text-center">
+                                            Final Defense
+                                        </th>
+                                    @elseif($event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'STE')->first()->id)
                                         <th class="text-center" colspan="2">
                                             Seminar
                                         </th>
                                     @endif
-                                <th>
-                                <th valign= "center" rowspan="2" width="10%">Grade</th>
                             </tr>
-
-                            
+                            @if($event->event_type == \Modules\ArSys\Entities\EventType::where('abbrev', 'PUB')->first()->id)
+                                <tr>
+                                    <th class="text-center">
+                                        Supervisor
+                                    </th>
+                                    <th class="text-center">
+                                        Examiners
+                                    </th>
+                                    <th class="text-center">
+                                        Examiners
+                                    </th>
+                                </tr>
+                            @endif
 
                         </thead>
                         <tbody id="users-table">
@@ -205,14 +224,12 @@
                                                                     @endforeach
                                                                 @endif
                                                             @endforeach
-                                                            
 
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </td>
-                                        <td>Nilai</td>
                                     </tr>
                                 @endif
                             @endforeach

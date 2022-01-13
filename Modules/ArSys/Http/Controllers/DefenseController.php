@@ -32,6 +32,13 @@ class DefenseController extends Controller
         else
             return redirect()->route('arsys');
     }
+    public function finalDefense_ProgramLeader(){
+        $user = Auth::user();
+        if($user != null && $user->hasRole('program'))
+            return view ('arsys::livewire.seminar.program.final-defense-idx');
+        else
+            return redirect()->route('arsys');
+    }
 
     public function preDefenseAll_ProgramLeader(){
         $user = Auth::user();

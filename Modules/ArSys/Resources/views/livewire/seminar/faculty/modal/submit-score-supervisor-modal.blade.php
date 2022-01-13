@@ -1,10 +1,10 @@
 <!-- Modal -->
 <div>
-    <div wire:ignore.self class="modal fade" id="submitSeminarScoreModal" tabindex="-1" role="dialog" aria-labelledby="defenseFacultySubmitScoreModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div wire:ignore.self class="modal fade" id="submitSeminarScoreSupervisorModal" tabindex="-1" role="dialog" aria-labelledby="defenseFacultySubmitScoreModal" aria-hidden="true" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="submitSeminarScoreModal">Seminar Score | Examiner</h5>
+                    <h5 class="modal-title" id="submitSeminarScoreSupervisorModal">Seminar Score | Supervisor</h5>
                     <button wire:click = "closeModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -88,8 +88,8 @@
                     @endif
                 </div>
                 <div class="modal-footer">
-                    @if($scoreId != null)
-                        <a class="btn btn-sm btn-sucess" wire:click="store({{$scoreId}})"><i class="fa fa-paper-plane" style="color:green" aria-hidden="true"></i>
+                    @if($scoreSupervisorId != null)
+                        <a class="btn btn-sm btn-sucess" wire:click="storeSupervisor({{$scoreSupervisorId}})"><i class="fa fa-paper-plane" style="color:green" aria-hidden="true"></i>
                             Submit
                         </a>
                     @endif

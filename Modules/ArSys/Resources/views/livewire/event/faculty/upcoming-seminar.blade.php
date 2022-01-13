@@ -183,6 +183,7 @@
             @endif
             <br>
             <b>SUPERVISED STUDENT</b>
+            <br>
             <div class="row">
                 <div class="col-md-12 offset-md-0">
                    @foreach($event->applicant as $applicant)

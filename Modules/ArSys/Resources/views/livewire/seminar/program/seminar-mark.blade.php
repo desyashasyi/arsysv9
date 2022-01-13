@@ -205,7 +205,7 @@
                                                     E
                                                 @endif
                                             @else
-                                                Supervise Score NULL
+                                                PENDING
                                             @endif
                                             @php($spvScore = NULL)
                                         </td>

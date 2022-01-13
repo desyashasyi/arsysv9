@@ -53,7 +53,7 @@ class EditSeminarScore extends Component
     public function storeSupervisor($score_id){
         if($this->seminarScore != null){
             $this->validate([
-                'seminarScore' =>'required|digits:3',
+                //'seminarScore' =>'required|digits:3',
             ]);
             ResearchSupervisorScore::find($score_id)->update([
                 'mark' => $this->seminarScore,

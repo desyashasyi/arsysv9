@@ -183,7 +183,7 @@
             @endif
             <br>
             <b>SUPERVISED STUDENT</b>
-            <br>
+            <hr>
             <div class="row">
                 <div class="col-md-12 offset-md-0">
                    @foreach($event->applicant as $applicant)
@@ -195,7 +195,7 @@
                                         <thead class="thead">
                                             <tr>
                                                 <th width="35%">Student</th>
-                                                <th text-align="right" width="40%">Participants</th>
+                                                <th text-align="right" width="40%">Research</th>
                                                 <th text-align="left" width="10%">Mark</th>
                                             </tr>
                                         </thead>

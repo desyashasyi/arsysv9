@@ -16,7 +16,7 @@ class EditSeminarScore extends Component
     public $seminarScore;
     public $seminarNote;
     protected $listeners = ['editSupervisorSeminarScoreComponent_Program' => 'seminarSupervisorScore_Program'];
-                            
+                         
     public function render()
     {
         $applicant = null;
@@ -52,9 +52,11 @@ class EditSeminarScore extends Component
 
     public function storeSupervisor($score_id){
         if($this->seminarScore != null){
-        
+            $this->validate([
+                'seminarScore' =>'required|digits:3',
+            ]);
             ResearchSupervisorScore::find($score_id)->update([
-                'mark' => NULL,
+                'mark' => $this->seminarScore,
                 'seminar_note' => $this->seminarNote,
             ]);
             $this->emit('successMessage', 'The mark of student\'s defense has been submitted' );
@@ -64,6 +66,6 @@ class EditSeminarScore extends Component
        
     }
     public function closeModal(){
-
+        $this->emit('seminarMarkProgramComponent');
     }
 }

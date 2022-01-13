@@ -13,8 +13,10 @@ class SeminarExaminerScore extends Model
 
     protected $table = 'arsys_seminar_examiner_score';
 
-    public function score(){
-        return $this->hasMany(Event::class, 'participant_id','id');
+    
+
+    public function applicant(){
+        return $this->belongsTo(EventApplicant::class, 'applicant_id','id');
     }
 
     protected static function newFactory()

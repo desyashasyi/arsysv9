@@ -21,7 +21,6 @@
                                     <br>
                                     <br>
                                     <i>{{$applicant->research->title}}</i>
-                                   
                                 @endif
                             </div>
                         </div>

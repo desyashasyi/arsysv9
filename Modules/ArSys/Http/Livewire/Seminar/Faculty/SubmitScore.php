@@ -7,6 +7,7 @@ use Modules\ArSys\Entities\SeminarExaminerScore;
 use Modules\ArSys\Entities\EventApplicant;
 use Modules\ArSys\Entities\DefenseScoreGuide;
 use Modules\ArSys\Entities\ResearchSupervisorScore;
+use Auth;
 
 class SubmitScore extends Component
 {
@@ -47,10 +48,38 @@ class SubmitScore extends Component
                 'mark' => $this->seminarScore,
                 'seminar_note' => $this->seminarNote,
             ]);
+
+            
+            $score = SeminarExaminerScore::where('id', $score_id)->first();
+            $room_id = $score->applicant->room_id;
+            
+            $applicants = EventApplicant::where('room_id', $room_id)->get();
+
+            foreach($applicants as $applicant){
+                if($applicant->id == $score->applicant->id){
+                    if($applicant->research->supervisor->contains('supervisor_id', Auth::user()->faculty->id)){
+                        foreach($applicant->research->supervisor as $supervisor){
+                            $scoreSupervisor = ResearchSupervisorScore::where('supervisor_id', $supervisor->id)->first();
+                            if($scoreSupervisor == NULL){
+                                ResearchSupervisorScore::create([
+                                    'event_id' => $applicant->event_id,
+                                    'applicant_id' => $applicant->id,
+                                    'supervisor_id' => $supervisor->id,
+                                ]);
+                            }
+                            ResearchSupervisorScore::where('supervisor_id', $supervisor->id)->update([
+                                'mark' => $this->seminarScore,
+                            ]);
+
+                        }
+                    }
+                }
+            }
             $this->emit('successMessage', 'The mark of student\'s defense has been submitted' );
         }else{
             $this->emit('errorMessage', 'The mark of student\'s defense should not blank' );
         }
+
 
     }
 

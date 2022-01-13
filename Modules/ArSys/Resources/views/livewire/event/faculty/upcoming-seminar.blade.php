@@ -188,8 +188,6 @@
                 <div class="col-md-12 offset-md-0">
                    @foreach($event->applicant as $applicant)
                         @if($applicant->research->supervisor->contains('supervisor_id', Auth::user()->faculty->id))
-                            @foreach($applicant->research->supervisor as $supervisor)
-                                @if($supervisor->supervisor_id == Auth::user()->faculty->id)
                                 <div class="table-responsive users-table">
                                     <table class="table table-striped table-sm data-table">
                                         <thead class="thead">
@@ -200,37 +198,40 @@
                                             </tr>
                                         </thead>
                                         <tbody id="users-table">
-                                            <tr>
-                                                <td>
-                                                    {{$applicant->research->student->program->code}}.{{$applicant->research->student->student_number}}
-                                                    <br>
-                                                    {{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}
-                                                </td>
-                                                <td>
-                                                    {{$applicant->research->research_code}}<br>
-                                                    {{$applicant->research->title}}
-                                                </td>
-                                                <td>
-                                                    <u wire:click="$emit('submitSeminarScoreComponent_FacultySupervisor', {{$supervisor->id}}, {{$event->id}}, {{$applicant->id}})" style="cursor:pointer">
-                                                        <i class="fa fa-xs fa-arrow-circle-up" aria-hidden="true" style="color:green"></i>
-                                                        @foreach($supervisor->supervisorscore as $score)
-                                                            @if($score->mark != NULL)
-                                                                {{$score->mark}}
-                                                            @else
-                                                                NULL
-                                                            @endif
-                                                        @endforeach
-                                                        @if($supervisor->supervisorscore->isEmpty())
-                                                            NULL
-                                                        @endif
-                                                    </u>
-                                                </td>
-                                            </tr>
+                                            @foreach($applicant->research->supervisor as $supervisor)
+                                                @if($supervisor->supervisor_id == Auth::user()->faculty->id)
+                                                    <tr>
+                                                        <td>
+                                                            {{$applicant->research->student->program->code}}.{{$applicant->research->student->student_number}}
+                                                            <br>
+                                                            {{$applicant->research->student->first_name}} {{$applicant->research->student->last_name}}
+                                                        </td>
+                                                        <td>
+                                                            {{$applicant->research->research_code}}<br>
+                                                            {{$applicant->research->title}}
+                                                        </td>
+                                                        <td>
+                                                            <u wire:click="$emit('submitSeminarScoreComponent_FacultySupervisor', {{$supervisor->id}}, {{$event->id}}, {{$applicant->id}})" style="cursor:pointer">
+                                                                <i class="fa fa-xs fa-arrow-circle-up" aria-hidden="true" style="color:green"></i>
+                                                                @foreach($supervisor->supervisorscore as $score)
+                                                                    @if($score->mark != NULL)
+                                                                        {{$score->mark}}
+                                                                    @else
+                                                                        NULL
+                                                                    @endif
+                                                                @endforeach
+                                                                @if($supervisor->supervisorscore->isEmpty())
+                                                                    NULL
+                                                                @endif
+                                                            </u>
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-                                @endif
-                            @endforeach
+                                
                         @endif
                    @endforeach
                 </div>

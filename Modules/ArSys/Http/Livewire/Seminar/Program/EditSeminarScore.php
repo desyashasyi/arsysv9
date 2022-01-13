@@ -54,7 +54,7 @@ class EditSeminarScore extends Component
         if($this->seminarScore != null){
         
             ResearchSupervisorScore::find($score_id)->update([
-                'mark' => $this->seminarScore,
+                'mark' => NULL,
                 'seminar_note' => $this->seminarNote,
             ]);
             $this->emit('successMessage', 'The mark of student\'s defense has been submitted' );

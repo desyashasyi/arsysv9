@@ -96,7 +96,11 @@
                                                                         @foreach($supervisor->supervisorscore as $score)
                                                                             @if($score->mark != NULL)
                                                                                 @php($spvScore = $score->mark)
-                                                                                {{$score->mark}}
+                                                                                <u wire:click="$emit('editSupervisorSeminarScoreComponent_Program', {{$supervisor->id}}, {{$event->id}}, {{$applicant->id}})" style="cursor:pointer">
+                                                                                    <i class="fa fa-xs fa-arrow-circle-up" aria-hidden="true" style="color:green"></i>
+                                                                                    {{$score->mark}}
+                                                                                </u>
+                                                                                
                                                                             @else
                                                                                 <u wire:click="$emit('editSupervisorSeminarScoreComponent_Program', {{$supervisor->id}}, {{$event->id}}, {{$applicant->id}})" style="cursor:pointer">
                                                                                     <i class="fa fa-xs fa-arrow-circle-up" aria-hidden="true" style="color:green"></i>

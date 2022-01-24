@@ -23,6 +23,12 @@ class ApplicantWaiting extends Component
             ->paginate(5);
         }
 
+        $researchs = Research::whereHas('student', function($query){
+            $query->where('first_name', 'like', '%' . $this->searchStudent . '%');
+        })
+        ->where('research_milestone',12)
+        ->paginate(5);
+
         return view('arsys::livewire.event.admin.seminar.applicant-waiting', compact('researchs'));
     }
     public function mount($event_id){

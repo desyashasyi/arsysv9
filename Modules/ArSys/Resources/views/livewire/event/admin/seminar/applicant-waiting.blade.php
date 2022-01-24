@@ -6,6 +6,7 @@
         </div>
     </div>
     @if($researchs)
+       
         <div class="row bg-info">
             <div class="table-responsive users-table">
                 <table class="table table-striped table-sm data-table">

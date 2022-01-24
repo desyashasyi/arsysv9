@@ -25,4 +25,6 @@
     @else
         There is no upcoming event
     @endif
+
+    @livewire('arsys::seminar.faculty.submit-score')
 </div>

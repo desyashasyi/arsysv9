@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-md-4 offset-md-0">
                         :
-                        {{$subject->year->year}}
+                       
                     </div>
                 </div>
             @else
@@ -102,6 +102,7 @@
                                 </td>
                                 <td>
                                     {{$subject->name}}
+                                  
                                 </td>
                                 <td class="text-center">
                                     @if($subject->specialization_id != null)

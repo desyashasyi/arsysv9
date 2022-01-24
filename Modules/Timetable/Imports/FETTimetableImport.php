@@ -14,6 +14,9 @@ use Modules\Timetable\Entities\Schedule;
 use Modules\Timetable\Entities\ScheduleRoom;
 use Modules\Timetable\Entities\ScheduleYear;
 use Modules\Timetable\Entities\ScheduleStudentSets;
+use Modules\Timetable\Entities\Student;
+use Modules\Timetable\Entities\Tags;
+use Modules\Timetable\Entities\ScheduleActivityTags;
 use Modules\Timetable\Entities\ScheduleTeachingTeam;
 use Log;
 
@@ -55,7 +58,11 @@ class FETTimetableImport implements ToCollection
                             if($subject_day == $row[1]){
                                 $day = explode(' ', $start_day);
                                 $dt = $day[0].' '.$row[2].':00';
-                                $daytime =  Carbon::createFromFormat('Y-m-d H:i:s', $dt)->format('Y-m-d H:i:s');
+                                if($dt != NULL){
+                                    //$daytime =  Carbon::createFromFormat('Y-m-d H:i:s', $dt)->format('Y-m-d H:i:s');
+                                    //$daytime = $dt;
+                                }
+                                
                             }
                             $start_day = Carbon::parse($start_day)->addDay();
                         }
@@ -76,13 +83,7 @@ class FETTimetableImport implements ToCollection
                             }
                         }
 
-                        $studentId = null;
-                        if($row[3] != ''){
-                            $student = ScheduleStudentSets::where('code', $row[3])->first();
-                            if($student != null){
-                                $studentId = $student->id;
-                            }
-                        }
+                      
 
                         $subjectId = null;
                         if($subject[1] != ''){
@@ -96,7 +97,7 @@ class FETTimetableImport implements ToCollection
                             Schedule::create([
                                 'activity_id' => $row[0],
                                 'year_id' => $schedule_year->id,
-                                'student_id' => $studentId,
+                                //'student_id' => $studentId,
                                 'program_id' => $this->programId,
                                 'subject_id' => $subjectId,
                                 'daytime'=> $daytime,
@@ -109,7 +110,7 @@ class FETTimetableImport implements ToCollection
                                 ->update([
                                     'activity_id' => $row[0],
                                     'year_id' => $schedule_year->id,
-                                    'student_id' => $studentId,
+                                    //'student_id' => $studentId,
                                     'program_id' => $this->programId,
                                     'subject_id' => $subjectId,
                                     'daytime'=> $daytime,
@@ -123,33 +124,91 @@ class FETTimetableImport implements ToCollection
                             ->where('year_id', $schedule_year->id)
                             ->first();
 
-                        foreach(explode('+',$row[5]) as $teacher){
-                            $faculty = Faculty::where('code', $teacher)->first();
-                            $facultyId;
-                            if($faculty != null){
-                                $facultyId = $faculty->id;
-                            }
+                        if($row[5] != ''){
+                            foreach(explode('+',$row[5]) as $teacher){
+                                $faculty = Faculty::where('code', $teacher)->first();
+                                $facultyId;
+                                if($faculty != null){
+                                    $facultyId = $faculty->id;
+                                }
 
-                            $teachingTeam = ScheduleTeachingTeam::where('schedule_id', $class->id)
-                                ->where('faculty_id', $facultyId)
-                                ->first();
-                            if($teachingTeam == null){
-                                ScheduleTeachingTeam::create([
-                                    'faculty_id' => $facultyId,
-                                    'schedule_id' => $class->id,
-                                ]);
-                            }else{
-                                if($schedule != null){
-                                    $faculty = ScheduleTeachingTeam::where('schedule_id', $schedule->id)
+                                $teachingTeam = ScheduleTeachingTeam::where('schedule_id', $class->id)
                                     ->where('faculty_id', $facultyId)
+                                    ->where('year_id', $schedule_year->id)
+                                    ->where('program_id', $this->programId)
                                     ->first();
-                                    ScheduleTeachingTeam::where('id',$faculty->id)->update([
+                                if($teachingTeam == null){
+                                    ScheduleTeachingTeam::create([
                                         'faculty_id' => $facultyId,
                                         'schedule_id' => $class->id,
+                                        'year_id' => $schedule_year->id,
+                                        'program_id' => $this->programId,
                                     ]);
+                                }else{
+                                    if($schedule != null){
+                                        $faculty = ScheduleTeachingTeam::where('schedule_id', $schedule->id)
+                                        ->where('faculty_id', $facultyId)
+                                        ->first();
+                                        ScheduleTeachingTeam::where('id',$faculty->id)->update([
+                                            'faculty_id' => $facultyId,
+                                            'schedule_id' => $class->id,
+                                        ]);
+                                    }
                                 }
                             }
                         }
+
+
+                        if($row[3] != ''){
+                            foreach(explode('+',$row[3]) as $student){
+                                $studentData = Student::where('code', $student)->first();
+                                $studentId;
+                                if($studentData != null){
+                                    $studentId = $studentData->id;
+                                }
+
+                                $studentSet = ScheduleStudentSets::where('schedule_id', $class->id)
+                                    ->where('student_id', $studentId)
+                                    ->where('year_id', $schedule_year->id)
+                                    ->where('program_id', $this->programId)
+                                    ->first();
+                                if($studentSet == null){
+                                    ScheduleStudentSets::create([
+                                        'student_id' => $studentId,
+                                        'schedule_id' => $class->id,
+                                        'year_id' => $schedule_year->id,
+                                        'program_id' => $this->programId,
+                                    ]);
+                                }else{
+                                    if($schedule != null){
+                                        $student = ScheduleStudentSets::where('schedule_id', $schedule->id)
+                                        ->where('student_id', $studentId)
+                                        ->first();
+                                        ScheduleStudentSets::where('id',$student->id)->update([
+                                            'student_id' => $studentId,
+                                            'schedule_id' => $class->id,
+                                        ]);
+                                    }
+                                }
+                            }
+                        }
+
+                        if($schedule != null){
+                            if($row[6] != null){
+                                foreach(explode('+',$row[6]) as $tag){
+                                    $tagId = Tags::where('description', $tag)->first();
+                                    if($tagId != NULL){
+                                       ScheduleActivityTags::where('schedule_id', $schedule->id)
+                                            ->where('tag_id', $tagId->id)
+                                            ->updateOrInsert([
+                                                'tag_id' => $tagId->id,
+                                                'schedule_id' => $schedule->id,
+                                            ]);
+                                    }
+                                }
+                            }
+                        }
+                        
                     }
                 }
 

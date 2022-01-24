@@ -19,6 +19,7 @@ use Modules\ArSys\Entities\ResearchMilestone;
 class Upcoming extends Component
 {
     protected $listners=['refreshUpcomingEventComponent' => '$refresh',
+        'refreshTestUpcomingEventComponent' => 'testRefresh',
         'wirePollEnableUpcomingEventSeminarComponent'=> 'wirePollEnable'];
     //public $eventId;
 
@@ -26,7 +27,7 @@ class Upcoming extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $events = Event::where('status', 1)->where('event_date', '>=', Carbon::today()->subDay(2))
+        $events = Event::where('status', 1)->where('event_date', '>=', Carbon::today()->subDay(3))
         ->orderBy('event_date', 'ASC')
         ->paginate(1);
         return view('arsys::livewire.event.faculty.upcoming', compact('events'));
@@ -112,5 +113,9 @@ class Upcoming extends Component
     }
     public function refreshUpcoming(){
         $this->emit('refreshUpcomingEventComponent');
+    }
+
+    public function testRefresh(){
+        dd('here');
     }
 }

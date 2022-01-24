@@ -36,6 +36,14 @@ class Schedule extends Model
         return $this->belongsTo(ScheduleStudentSets::class, 'student_id', 'id');
     }
 
+    public function activitytags() {
+        return $this->hasMany(ScheduleActivityTags::class, 'schedule_id', 'id');
+    }
+
+    public function studentsets() {
+        return $this->hasMany(ScheduleStudentSets::class, 'schedule_id', 'id');
+    }
+
     public function assignmentletter(){
         return $this->belongsTo(ScheduleAssignmentLetter::class, ['year_id', 'program_id'], ['year_id', 'program_id']);
     }

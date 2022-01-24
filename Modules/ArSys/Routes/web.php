@@ -13,7 +13,7 @@
 
 Route::prefix('arsys')->group(function() {
     Route::get('/', 'ArSysController@index')->name('arsys')->middleware('cas.auth');
-    #Route::get('/', 'ArSysController@indexx')->name('arsys');
+    //Route::get('/', 'ArSysController@indexx')->name('arsys');
     Route::get('/home', 'ArSysController@home')->name('arsys.home');
 
 

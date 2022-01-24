@@ -17,7 +17,9 @@
                                     <b>Student sets</b>
                                 </div>
                                 <div class="col-md-8 offset-md-0">
-                                    {{$schedule->student->code}}
+                                    @foreach($schedule->studentsets as $student)
+                                        {{$student->student->code}}
+                                    @endforeach
                                 </div>
                             </div>
                             <hr>
@@ -26,7 +28,7 @@
                                     <b>Student year</b>
                                 </div>
                                 <div class="col-md-8 offset-md-0">
-                                    {{intval(\Carbon\Carbon::parse($schedule->daytime)->translatedformat('Y')) - ($schedule->student->grade-1)}}
+                                    {{intval(\Carbon\Carbon::parse($schedule->daytime)->translatedformat('Y'))}}
                                 </div>
                             </div>
                             <hr>

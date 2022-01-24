@@ -236,6 +236,6 @@
                    @endforeach
                 </div>
             </div>
-    @livewire('arsys::seminar.faculty.submit-score')
+    
     @livewire('arsys::event.admin.seminar.add-moderator')
 </div>

@@ -18,8 +18,8 @@ class ApplicantWaiting extends Component
             $researchs = Research::whereHas('student', function($query){
                 $query->where('first_name', 'like', '%' . $this->searchStudent . '%');
             })
-            ->where('research_milestone','>', 4)
-            ->where('research_milestone','<', 14)
+            ->where('research_milestone','>=', 10)
+            ->where('research_milestone','<=', 12)
             ->paginate(5);
         }
 

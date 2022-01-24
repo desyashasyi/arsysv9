@@ -106,4 +106,17 @@ class Home extends Component
         }
 
     }
+
+    public function adminScheduleStatusCheck($id){
+        $schedule = Schedule::where('id', $id)->first();
+        if($schedule->siak_status){
+            Schedule::where('id', $id)->update([
+                'siak_status' => false,
+            ]);
+        }else{
+            Schedule::where('id', $id)->update([
+                'siak_status' => true,
+            ]);
+        }
+    }
 }

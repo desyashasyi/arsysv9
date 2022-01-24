@@ -9,7 +9,7 @@ class ScheduleTeachingTeam extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['faculty_id', 'schedule_id', 'year_id'];
+    protected $fillable = ['faculty_id', 'schedule_id', 'year_id', 'program_id'];
     protected $table = 'timetable_schedule_teaching_team';
 
     public function faculty() {

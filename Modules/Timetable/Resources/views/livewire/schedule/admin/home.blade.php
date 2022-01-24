@@ -123,6 +123,9 @@
                             </button>
                             Code
                         </th>
+                        <th class="text-center" width="10%">
+                            Teacher
+                        </th>
                         <th width="20%">
                             <button type="button" wire:click.prevent="sort('name')" class="btn btn-xs" >
                                 <i class="fa fa-sort"></i>
@@ -142,9 +145,7 @@
                             Day-Time
                         </th>
 
-                        <th class="text-center" width="10%">
-                            Teacher
-                        </th>
+                        
                         <th class="text-center" width="10%">
                             Action
                         </th>
@@ -158,28 +159,36 @@
                                     {{++$number}}
                                 </td>
                                 <td class="text-left">
-                                    <div
-                                        @if($wirePoll == true)
-                                            wire:poll
-                                        @endif
-                                        @php($wirePoll = false)
-                                    >
-                                        @if($schedule->siak_status)
-                                            <!--<button wire:click="$emit('adminScheduleStatusCheck', {{$schedule->id}})" class="btn btn-sm"><i style="color:green" class="fas fa-check-circle"></i>-->
-                                                <i style="color:green" class="fas fa-check-circle"></i>
-                                        @else
-                                            <!--<button wire:click="$emit('adminScheduleStatusCheck', {{$schedule->id}})" class="btn btn-sm"><i class="fas fa-check-circle"></i>-->
-                                                <i class="fas fa-check-circle"></i>
-                                        @endif
+                                        
                                         @if($schedule->subject != null)
+                                            @if($schedule->siak_status)
+                                            <a wire:click="adminScheduleStatusCheck({{$schedule->id}})" class="btn btn-sm"><i style="color:green" class="fas fa-check-circle"></i>
+                                                    <i style="color:green" class="fas fa-check-circle"></i></a>
+                                            @else
+                                                <a wire:click="adminScheduleStatusCheck({{$schedule->id}})" class="btn btn-sm"><i style="color:green" class="fas fa-check-circle"></i>
+                                                <i style="color:gray" class="fas fa-check-circle"></i> </a>
+                                            @endif
                                             {{$schedule->subject->code}}
                                         @endif
-                                        </button>
+                                       
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    @foreach($schedule->team as $team)
+                                    {{$team->faculty->upi_code}}-{{$team->faculty->code}}<br>
+                                    @endforeach
                                     </div>
                                 </td>
                                 <td class="text-left">
                                     @if($schedule->subject != null)
                                         {{$schedule->subject->name}}
+                                        @if($schedule->activitytags->isNotEmpty())
+                                            <hr>
+                                            <b>Tags:</b>
+                                            @foreach($schedule->activitytags as $tag)
+                                                {{$tag->tag->description}} &nbsp;
+                                            @endforeach
+                                        @endif
                                     @endif
                                 </td>
                                 <td class="text-center">
@@ -188,9 +197,13 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    @if($schedule->student != null)
-                                        {{$schedule->student->code}}
+                                    
+                                    @if($schedule->studentsets != null)
+                                        @foreach($schedule->studentsets as $student)
+                                            {{$student->student->code}}<br>
+                                        @endforeach
                                     @endif
+                                    
                                 </td>
                                 <td class="text-left">
                                     @if($schedule->room != null)
@@ -207,18 +220,7 @@
                                     @endif
                                 </td>
 
-                                <td class="text-center">
-                                    <div
-                                        @if($wirePoll)
-                                            wire:poll
-                                        @endif
-                                        @php($wirePoll = false)
-                                    >
-                                    @foreach($schedule->team as $team)
-                                        {{$team->faculty->code}}<br>
-                                    @endforeach
-                                    </div>
-                                </td>
+                                
 
                                 <td class="text-center">
                                     <button wire:click="$emit('editSchedule_Admin', {{$schedule->id}})" class="btn btn-sm">

@@ -80,7 +80,7 @@ class SubmitScore extends Component
             $this->emit('errorMessage', 'The mark of student\'s defense should not blank' );
         }
 
-
+        
     }
 
 
@@ -111,9 +111,9 @@ class SubmitScore extends Component
         }else{
             $this->emit('errorMessage', 'The mark of student\'s defense should not blank' );
         }
-
+        $this->emitUp('refreshTestUpcomingEventComponent');
     }
     public function closeModal(){
-
+        $this->emitUp('refreshTestUpcomingEventComponent');
     }
 }

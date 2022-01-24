@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class UpcomingSeminar extends Component
 {
-    protected $listners=['refreshUpcomingEventSeminarComponent' => 'refreshUpcoming',
+    protected $listners=['refreshSeminarUpcomingComponent' => 'refreshSeminarUpcoming',
                         ];
     public $eventId;
     public $currentRoom = null;
@@ -24,6 +24,11 @@ class UpcomingSeminar extends Component
 
     public function mount($id){
         $this->eventId = $id;
+    }
+
+    public function refreshSeminarUpcoming(){
+        dd('here');
+        $this->emit('refreshUpcomingEventComponent');
     }
 
 

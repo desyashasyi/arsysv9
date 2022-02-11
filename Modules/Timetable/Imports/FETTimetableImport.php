@@ -38,9 +38,14 @@ class FETTimetableImport implements ToCollection
     public function collection (Collection $rows)
     {
 
-        $activity_id = '';
+        $activity_id = null;
+        $number_of_Activity = null;
+        $schedule_year = ScheduleYear::latest()->first();
+        $start_day = $schedule_year->start;
+
         foreach($rows as $row){
             if($row[0] != 'Activity Id'){
+                
                 if($row[0] != $activity_id){
                     $activity_id = $row[0];
                     error_log($activity_id);
@@ -50,16 +55,15 @@ class FETTimetableImport implements ToCollection
                         $subject = explode('-', $row[4]);
                     }
                     if($subject[0] == Program::where('id', $this->programId)->first()->code){
-                        $schedule_year = ScheduleYear::latest()->first();
-                        $start_day = $schedule_year->start_date;
                         $daytime = null;
                         for($iter = 1; $iter < 8; $iter++){
                             $subject_day = Carbon::parse($start_day)->format('l');
                             if($subject_day == $row[1]){
                                 $day = explode(' ', $start_day);
                                 $dt = $day[0].' '.$row[2].':00';
+                               
                                 if($dt != NULL){
-                                    //$daytime =  Carbon::createFromFormat('Y-m-d H:i:s', $dt)->format('Y-m-d H:i:s');
+                                    $daytime =  Carbon::createFromFormat('Y-m-d H:i:s', $dt)->format('Y-m-d H:i:s');
                                     //$daytime = $dt;
                                 }
                                 
@@ -102,6 +106,7 @@ class FETTimetableImport implements ToCollection
                                 'subject_id' => $subjectId,
                                 'daytime'=> $daytime,
                                 'room_id' => $roomId,
+                                'number_of_activity' => $number_of_Activity,
                             ]);
                         }else{
                             Schedule::where('program_id', $this->programId)
@@ -115,6 +120,7 @@ class FETTimetableImport implements ToCollection
                                     'subject_id' => $subjectId,
                                     'daytime'=> $daytime,
                                     'room_id' => $roomId,
+                                    'number_of_activity' => $number_of_Activity,
                                 ]);
                         }
 
@@ -193,25 +199,27 @@ class FETTimetableImport implements ToCollection
                             }
                         }
 
-                        if($schedule != null){
-                            if($row[6] != null){
-                                foreach(explode('+',$row[6]) as $tag){
-                                    $tagId = Tags::where('description', $tag)->first();
-                                    if($tagId != NULL){
-                                       ScheduleActivityTags::where('schedule_id', $schedule->id)
-                                            ->where('tag_id', $tagId->id)
-                                            ->updateOrInsert([
-                                                'tag_id' => $tagId->id,
-                                                'schedule_id' => $schedule->id,
-                                            ]);
-                                    }
+                        if($row[6] != null){
+                            $schedule = Schedule::where('program_id', $this->programId)
+                                ->where('activity_id', $row[0])
+                                ->where('year_id', $schedule_year->id)
+                                ->first();
+                            foreach(explode('+',$row[6]) as $tag){
+                                $tagId = Tags::where('code', $tag)->first();
+                                //dd($tag);
+                                if($tagId != NULL){
+                                   ScheduleActivityTags::where('schedule_id', $schedule->id)
+                                        ->where('tag_id', $tagId->id)
+                                        ->updateOrInsert([
+                                            'tag_id' => $tagId->id,
+                                            'schedule_id' => $schedule->id,
+                                        ]);
                                 }
-                            }
+                            }                            
                         }
                         
                     }
                 }
-
             }
         }
     }

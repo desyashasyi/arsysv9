@@ -18,13 +18,13 @@ class Lecture extends Component
         $yearId = ScheduleYear::latest()->first()->id;
 
         $schedules = Schedule::where('year_id',$yearId)
-            ->whereHas('team',function($query) use($faculty){
+            ->whereHas('teams',function($query) use($faculty){
                 $query->where('faculty_id',$faculty->id);
             })
             ->get();
 
         $schedule = Schedule::where('year_id',$yearId)
-            ->whereHas('team',function($query) use($faculty){
+            ->whereHas('teams',function($query) use($faculty){
                 $query->where('faculty_id',$faculty->id);
             })
             ->latest()

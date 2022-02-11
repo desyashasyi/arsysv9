@@ -53,7 +53,7 @@ class Home extends Component
                         ->where('research_milestone', 2)->orwhere('research_milestone', 3)
                         ->where('status', null);
                     })
-            ->orderBy('student_id', 'ASC')
+            ->orderBy('student_number', 'ASC')
             ->paginate(10);
 
         if ($this->search !== null) {

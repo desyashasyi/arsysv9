@@ -16,6 +16,8 @@ class Home extends Component
 {
     public $pageName = 'scheduleHome';
     public $programId;
+    public $sort = false;
+    public $sortBy = null;
     public $wirePoll = false;
     public $timetableFile = null;
     use WithFileUploads;
@@ -47,10 +49,20 @@ class Home extends Component
             $schedule = Schedule::where('program_id', $this->programId)
                         ->where('year_id', ScheduleYear::latest()->first()->id)
                         ->latest()->first();
-            $schedules = Schedule::where('program_id', $this->programId)
+            if($this->sort == false){
+                $schedules = Schedule::where('program_id', $this->programId)
                     ->where('year_id', ScheduleYear::latest()->first()->id)
                     ->orderBy('activity_id', 'ASC')
                     ->paginate(50);
+            }else{
+                if($this->sortBy == 'subject_id'){
+                    $schedules = Schedule::where('program_id', $this->programId)
+                    ->where('year_id', ScheduleYear::latest()->first()->id)
+                    ->orderBy('subject_id', 'ASC')
+                    ->paginate(50);
+                }
+            }
+            
         }
         return view('timetable::livewire.schedule.admin.home', compact('schedules', 'schedule'));
     }
@@ -118,5 +130,10 @@ class Home extends Component
                 'siak_status' => true,
             ]);
         }
+    }
+
+    public function sortSchedule($sortBy){
+        $this->sort = true;
+        $this->sortBy = $sortBy;
     }
 }

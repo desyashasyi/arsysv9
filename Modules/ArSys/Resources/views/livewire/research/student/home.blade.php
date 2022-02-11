@@ -143,9 +143,11 @@
                                                                         @endif
                                                                     @endif
                                                                 @else
-                                                                    @if($research->milestoneseminar->propose_button == true)
-                                                                        <button wire:click="propose({{ $research->id }})"
-                                                                        class="btn btn-primary btn-sm">Propose Seminar</button>
+                                                                    @if($research->milestoneseminar != null)
+                                                                        @if($research->milestoneseminar->propose_button == true)
+                                                                            <button wire:click="propose({{ $research->id }})"
+                                                                            class="btn btn-primary btn-sm">Propose Seminar</button>
+                                                                        @endif
                                                                     @endif
                                                                     @if($research->research_milestone == 6)
                                                                         <button wire:click="$emit('studentEventApplyComponent', {{$research->id}}, {{$research->research_milestone}})"
@@ -519,8 +521,10 @@
                                                                                                     {{ \Carbon\Carbon::parse($applicant->event->event_date)->format('d-m-Y') }}</u></a>
                                                                                                 @endif
                                                                                             @else
-                                                                                                {{$applicant->event->type->description}}
-                                                                                                {{ \Carbon\Carbon::parse($applicant->event->event_date)->format('d-m-Y') }}
+                                                                                                @if($applicant->applicantroom->space != NULL)
+                                                                                                    {{$applicant->event->type->description}}
+                                                                                                    {{ \Carbon\Carbon::parse($applicant->event->event_date)->format('d-m-Y') }}
+                                                                                                @endif
                                                                                             @endif
                                                                                             <a title="Detail of event" class="btn btn-sm" wire:click="$emit('eventSeminarApplicantComponent_Student', {{$applicant->event_id}}, {{$applicant->research->id}})"><i class="fa fa-eye"></i></a>
                                                                                         @else
@@ -528,8 +532,10 @@
                                                                                                 <a href="{{$applicant->space->link}}" target="_blank"><u>{{$applicant->event->type->description}}
                                                                                                 {{ \Carbon\Carbon::parse($applicant->event->event_date)->format('d-m-Y') }}</u></a>
                                                                                             @else
-                                                                                                {{$applicant->event->type->description}}
-                                                                                                {{ \Carbon\Carbon::parse($applicant->event->event_date)->format('d-m-Y') }}
+                                                                                                @if($applicant->applicantroom->space != NULL)
+                                                                                                    {{$applicant->event->type->description}}
+                                                                                                    {{ \Carbon\Carbon::parse($applicant->event->event_date)->format('d-m-Y') }}
+                                                                                                @endif
                                                                                             @endif
                                                                                             <a title="Detail of event" class="btn btn-sm" wire:click="$emit('emiterStudentEventApplicant', {{$applicant->event_id}})"><i class="fa fa-eye"></i></a>
                                                                                         @endif

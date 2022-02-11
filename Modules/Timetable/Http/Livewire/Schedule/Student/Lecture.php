@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 class Lecture extends Component
 {
     public $sortBy;
+    public $search;
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public function render()

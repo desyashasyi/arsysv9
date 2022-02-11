@@ -7,6 +7,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\Timetable\Imports\FETTimetableImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Timetable\Entities\Schedule;
+use Modules\Timetable\Entities\ScheduleYear;
 
 class Import extends Component
 {
@@ -37,6 +39,15 @@ class Import extends Component
         $this->validate([
             'fileTimetable' => "required|max:10000",
         ]);
+
+        $schedules = Schedule::where('program_id', $this->programId)
+                        ->where('year_id', ScheduleYear::latest()->first()->id)
+                        ->get();
+        if($schedules->isNotEmpty()){
+            foreach($schedules as $schedule){
+                Schedule::find($schedule->id)->delete();
+            }
+        }
         $path1 = $this->fileTimetable->store('temp');
         $path=storage_path('app').'/'.$path1;
         Excel::import(new FETTimetableImport($this->programId), $path);

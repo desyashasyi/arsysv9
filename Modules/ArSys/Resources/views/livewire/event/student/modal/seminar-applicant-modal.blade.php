@@ -41,11 +41,15 @@
                                                 <br>
                                                 <b>Meeting ID</b>
                                                 <br>
-                                                {{$room->space->space}}
+                                                @if($room->space != null)
+                                                    {{$room->space->space}}
+                                                @endif
                                                 <br>
                                                 <b>Passcode</b>
                                                 <br>
-                                                {{$room->space->passcode}}
+                                                @if($room->space != null)
+                                                    {{$room->space->passcode}}
+                                                @endif
                                             </td>
 
                                             <td>

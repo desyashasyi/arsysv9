@@ -1,4 +1,9 @@
 <div>
+    <div class="row">
+        <div class="col-md-3 offset-md-0">
+            <input wire:model="search" type="text" class="my-1 form-control" placeholder="Search username">
+        </div>
+    </div>
     @if($schedule != null)
 
         <div class="row">
@@ -6,7 +11,7 @@
                 <b>Academic year</b>
             </div>
             <div class="col-md-4 offset-md-0">
-                : {{$schedule->desc->year}}
+                : {{$schedule->desc->academic_year}}
             </div>
         </div>
         <div class="row">
@@ -83,8 +88,10 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    @if($schedule->student != null)
-                                        {{$schedule->student->code}}
+                                    @if($schedule->studentsets != null)
+                                        @foreach($schedule->studentsets as $student)
+                                            {{$student->student->code}}
+                                        @endforeach
                                     @endif
                                 </td>
                                 <td class="text-left">
@@ -103,7 +110,7 @@
                                 </td>
 
                                 <td class="text-center">
-                                    @foreach($schedule->team as $team)
+                                    @foreach($schedule->teams as $team)
                                         {{$team->faculty->code}}<br>
                                     @endforeach
                                 </td>

@@ -84,8 +84,10 @@
                                         @endif
                                     </td>
                                     <td class="text-left">
-                                        @if($schedule->student != null)
-                                            {{$schedule->student->code}}
+                                        @if($schedule->studentsets != null)
+                                            @foreach($schedule->studentsets as $student)
+                                                {{$student->student->code}}
+                                            @endforeach
                                         @endif
                                     </td>
                                     <td class="text-left">
@@ -104,7 +106,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        @foreach($schedule->team as $team)
+                                        @foreach($schedule->teams as $team)
                                             {{$team->faculty->code}}<br>
                                         @endforeach
                                     </td>

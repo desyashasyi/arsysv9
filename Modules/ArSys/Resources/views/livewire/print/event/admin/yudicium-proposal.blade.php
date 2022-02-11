@@ -504,23 +504,23 @@ hr {
         <table width="100%">
             <tbody>
             <tr>
-                <td width="70%" align="right">Ditetapkan di</td>
-                <td width="30%">: Bandung
+                <td width="70%" ></td>
+                <td width="30%">Ditetapkan di: Bandung</td>
             </td>
             <tr>
-                <td width="70%" align="right">Pada tanggal</td>
-                </td>
-                <td width="30%">
-                    : {{ \Carbon\Carbon::parse($letter->date)->translatedformat('d F Y')}}
+                <td width="70%" ></td>
+                <td width="30%">Pada Tanggal: </td>
+                    {{ \Carbon\Carbon::parse($letter->date)->translatedformat('d F Y')}}
                 </td>
             </tr>
 
             <tr>
-                <td width="70%" align="right">Dekan</td>
-                </td>
+                <td width="70%"></td>
+                <td width="30%">Dekan</td>
             </tr>
             <tr>
-                <td width="100%">
+                <td width="70%"></td>
+                <td width="30%">
                 <br />
                 <br />
                 <br />

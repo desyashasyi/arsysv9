@@ -1,3 +1,5 @@
+
+
 <div>
     @php(\Carbon\Carbon::setLocale('id'))
     <div>
@@ -84,11 +86,9 @@
                         <button wire:click="$emit('adminScheduleSIAKInput', {{$schedule->program_id}},{{$schedule->year_id}})" class="btn btn-sm btn-primary"><i class="fas fa-arrow-up-circle"></i>
                             Entry SIAK Data
                         </button>
-                        @if($schedule->assignmentletter != null)
                             <button wire:click="printAssignmentLetter({{$schedule->program_id}}, {{$schedule->year_id}})" class="btn btn-sm btn-primary"><i class="fas fa-print"></i>
                                 Print Assignment Letter
                             </button>
-                        @endif
 
                         <button wire:click="setProgramId({{$schedule->program_id}},{{$schedule->year_id}})" class="btn btn-sm btn-primary"><i class="fas fa-arrow-up-circle"></i>
                             Set Program ID
@@ -118,7 +118,7 @@
                             No
                         </th>
                         <th class="text-center" width="10%">
-                            <button type="button" wire:click.prevent="sort('code')" class="btn btn-xs" >
+                            <button type="button" wire:click.prevent="sortSchedule('subject_id')" class="btn btn-xs" >
                                 <i class="fa fa-sort"></i>
                             </button>
                             Code
@@ -127,9 +127,6 @@
                             Teacher
                         </th>
                         <th width="20%">
-                            <button type="button" wire:click.prevent="sort('name')" class="btn btn-xs" >
-                                <i class="fa fa-sort"></i>
-                            </button>
                             Subject
                         </th>
                         <th class="text-center" width="5%">
@@ -174,7 +171,7 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    @foreach($schedule->team as $team)
+                                    @foreach($schedule->teams as $team)
                                     {{$team->faculty->upi_code}}-{{$team->faculty->code}}<br>
                                     @endforeach
                                     </div>
@@ -215,7 +212,11 @@
                                         {{ \Carbon\Carbon::parse($schedule->daytime)->translatedformat('l') }}<br>
                                         {{ \Carbon\Carbon::parse($schedule->daytime)->format('H:i') }} -
                                         @if($schedule->subject != null)
-                                            {{ \Carbon\Carbon::parse($schedule->daytime)->addMinute($schedule->subject->credit*50)->format('H:i') }}
+                                            @if($schedule->activitytags->contains('tag_id', \Modules\Timetable\Entities\Tags::where('code', 'PRA')->first()->id))
+                                                {{ \Carbon\Carbon::parse($schedule->daytime)->addMinute(8*50)->format('H:i') }}
+                                            @else
+                                                {{ \Carbon\Carbon::parse($schedule->daytime)->addMinute($schedule->subject->credit*50)->format('H:i') }}
+                                            @endif
                                         @endif
                                     @endif
                                 </td>

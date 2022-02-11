@@ -224,8 +224,11 @@ hr {
                                             @endif
                                         </td>
                                         <td class="text-center">
-                                            @if($team->schedule->student != null)
-                                                {{$team->schedule->student->code}}
+                                            @if($team->schedule->studentsets != null)
+                                                @foreach($team->schedule->studentsets as $student)
+                                                    {{$student->student->code}}
+                                                    <br>
+                                                @endforeach
                                             @endif
                                         </td>
                                         <td align="center">S1
@@ -251,7 +254,7 @@ hr {
                                         </td>
 
                                         <td class="text-center">
-                                            @foreach($team->schedule->team as $team)
+                                            @foreach($team->schedule->teams as $team)
                                                 {{$team->faculty->front_title}}
                                                 {{$team->faculty->first_name}}
                                                 {{$team->faculty->last_name}},

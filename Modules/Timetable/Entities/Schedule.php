@@ -24,7 +24,7 @@ class Schedule extends Model
         return $this->belongsTo(Subject::class, 'subject_id', 'id');
     }
 
-    public function team() {
+    public function teams() {
         return $this->hasMany(ScheduleTeachingTeam::class, 'schedule_id', 'id');
     }
 
@@ -32,7 +32,7 @@ class Schedule extends Model
         return $this->belongsTo(ScheduleRoom::class, 'room_id', 'id');
     }
 
-    public function student() {
+    public function students() {
         return $this->belongsTo(ScheduleStudentSets::class, 'student_id', 'id');
     }
 
@@ -46,6 +46,23 @@ class Schedule extends Model
 
     public function assignmentletter(){
         return $this->belongsTo(ScheduleAssignmentLetter::class, ['year_id', 'program_id'], ['year_id', 'program_id']);
+    }
+
+
+    public static function boot() {
+        parent::boot();
+        self::deleting(function($schedule) {
+            $schedule->teams()->each(function($team) {
+                $team->delete();
+            });
+            $schedule->studentsets()->each(function($studentset) {
+                $studentset->delete();
+            });
+            $schedule->activitytags()->each(function($activitytag) {
+                $activitytag->delete();
+            });
+            
+        });
     }
 
     protected static function newFactory()

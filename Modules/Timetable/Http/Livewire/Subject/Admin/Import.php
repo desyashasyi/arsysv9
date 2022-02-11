@@ -7,6 +7,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\Timetable\Imports\CurriculumImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\Timetable\Entities\Subject;
+use Modules\Timetable\Entities\SubjectYear;
 
 class Import extends Component
 {
@@ -39,6 +41,14 @@ class Import extends Component
         ]);
         $path1 = $this->fileSubject->store('temp');
         $path=storage_path('app').'/'.$path1;
+        $subjects = Subject::where('program_id', $this->programId)->where('year_id', SubjectYear::latest()->first()->id)
+                    ->get();
+
+        if($subjects->isNotEmpty()){
+            foreach($subjects as $subject){
+                Subject::find($subject->id)->delete();
+            }
+        }
         Excel::import(new CurriculumImport($this->programId), $path);
     }
 

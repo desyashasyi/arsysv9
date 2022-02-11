@@ -10,15 +10,19 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    <button class="btn btn-sm">
+                        <i class="fa fa-xs fa-edit" style="color:green" aria-hidden="true"></i>
+                        Add
+                   </button>
                     <div class="row">
                         <div class="table-responsive users-table">
                             <table class="table table-striped table-sm data-table">
                                 <thead class="thead">
                                 <tr>
                                     <th width="30%">Space</th>
-                                    <th width="30%">Passcode</th>
+                                    <th width="20%">Passcode</th>
                                     <th width="20%" class="text-center">Desc</th>
-                                    <th width="20%">Action</th>
+                                    <th width="30%">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody id="users-table">
@@ -43,6 +47,10 @@
                                                 @endif
                                                  Select
                                             </button>
+                                            <button wire:click="submitSpace({{$space->id}})" class="btn btn-sm">
+                                                <i class="fa fa-xs fa-edit" style="color:green" aria-hidden="true"></i>
+                                                Edit
+                                           </button>
                                         </td>
                                     </tr>
                                     @endforeach
